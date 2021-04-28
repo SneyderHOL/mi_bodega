@@ -1,0 +1,15 @@
+<% flash.each do |name, msg| %>
+  <% case name %>
+  <% when "alert" %>
+    <% context = "warning" %>
+  <% when "notice" %>
+    <% context = "success" %>
+  <% else %>
+    <% context = "light" %>
+  <% end %>
+  <div class="alert alert-<%= context %> alert-dismissible fade show" role="alert">
+    <%= msg %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    </button>
+  </div>
+<% end %>
