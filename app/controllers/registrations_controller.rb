@@ -1,3 +1,4 @@
+#Placeholder for handling payments
 class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
