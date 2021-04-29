@@ -25,6 +25,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 # Use strip
 gem 'stripe'
+# Use acts_as_tenant
+gem 'acts_as_tenant'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
