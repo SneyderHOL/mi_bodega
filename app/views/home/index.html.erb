@@ -1,1 +1,54 @@
-<h1>Welcome to Mi Bodega</h1>
+<% if current_user %>
+<h3>Welcome: <%= current_user.email %></h3>
+<% else %>
+  <div class="jumbotron">
+    <h2>Welcome to Mi Bodega App!</h2>
+    <p class="lead">You'll love managing your Storage Units with our application. Sign up!</p>
+  </div>
+  <div class="row">
+    <div class="plans clearfix">
+    <div class="col-lg-3 col-lg-offset-3 plan">
+        <h2>Free Plan</h2>
+        <div class="price pull-right">
+          Price: Free
+        </div>
+        <div class="features">
+          <ul>
+            <li>1 Box</li>
+            <li>Unlimited Items Upload</li>
+            <li>Access anywhere</li>
+          </ul>
+        </div>
+        <p><%= link_to 'Sing Up', new_user_registration_path, class: "btn btn-primary sign-up" %></p>
+      </div>
+      <div class="col-lg-3 col-lg-offset-3 plan">
+        <h2>Moderate Plan</h2>
+        <div class="price pull-right">
+          Price: $10
+        </div>
+        <div class="features">
+          <ul>
+            <li>5 Boxes</li>
+            <li>Unlimited Items Upload</li>
+            <li>Access anywhere</li>
+          </ul>
+        </div>
+        <p><%= link_to 'Sing Up', new_user_registration_path, class: "btn btn-primary sign-up" %></p>
+      </div>
+      <div class="col-lg-3 plan">
+        <h2>Unlimited Plan</h2>
+        <div class="price pull-right">
+          Price: $20
+        </div>
+        <div class="features">
+          <ul>
+            <li>Unlimited Boxes</li>
+            <li>Unlimited Items Upload</li>
+            <li>Access anywhere</li>
+          </ul>
+        </div>
+        <p><%= link_to 'Sing Up', new_user_registration_path, class: "btn btn-primary sign-up" %></p>
+      </div>
+    </div>
+  </div>
+<% end %>
