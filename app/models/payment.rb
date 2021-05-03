@@ -24,9 +24,11 @@ class Payment < ApplicationRecord
       ],
     })
     self.stripe_customer_id = customer.id
-    subscription_register = Subscription.new(price: price, account: account, active: true)
-    byebug  
-    subscription_register.save
-    byebug
+    Subscription.create(
+      price: price,
+      account: account,
+      active: true,
+      stripe_subscription_id: subscription.id
+    )
   end
 end

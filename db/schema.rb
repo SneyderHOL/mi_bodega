@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_222937) do
+ActiveRecord::Schema.define(version: 2021_05_03_230529) do
 
   create_table "account_users", force: :cascade do |t|
     t.boolean "admin"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_05_03_222937) do
     t.integer "price_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "stripe_subscription_id"
     t.index ["account_id"], name: "index_subscriptions_on_account_id"
     t.index ["price_id"], name: "index_subscriptions_on_price_id"
   end
