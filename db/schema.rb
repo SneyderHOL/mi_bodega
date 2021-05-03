@@ -10,7 +10,81 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_28_213341) do
+ActiveRecord::Schema.define(version: 2021_05_03_213126) do
+
+  create_table "account_users", force: :cascade do |t|
+    t.boolean "admin"
+    t.integer "account_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_account_users_on_account_id"
+    t.index ["user_id"], name: "index_account_users_on_user_id"
+  end
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "boxes", force: :cascade do |t|
+    t.string "name"
+    t.string "qr_code"
+    t.integer "account_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_boxes_on_account_id"
+    t.index ["user_id"], name: "index_boxes_on_user_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "description"
+    t.integer "box_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["box_id"], name: "index_items_on_box_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "token"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.integer "box_limit"
+    t.string "stripe_product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.string "currency"
+    t.integer "amount"
+    t.string "interval"
+    t.string "stripe_price_id"
+    t.integer "plan_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id"], name: "index_prices_on_plan_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.boolean "active"
+    t.integer "account_id", null: false
+    t.integer "price_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_subscriptions_on_account_id"
+    t.index ["price_id"], name: "index_subscriptions_on_price_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,4 +98,14 @@ ActiveRecord::Schema.define(version: 2021_04_28_213341) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "account_users", "accounts"
+  add_foreign_key "account_users", "users"
+  add_foreign_key "boxes", "accounts"
+  add_foreign_key "boxes", "users"
+  add_foreign_key "items", "boxes"
+  add_foreign_key "items", "users"
+  add_foreign_key "payments", "users"
+  add_foreign_key "prices", "plans"
+  add_foreign_key "subscriptions", "accounts"
+  add_foreign_key "subscriptions", "prices"
 end
