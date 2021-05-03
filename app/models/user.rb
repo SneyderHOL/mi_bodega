@@ -6,6 +6,6 @@ class User < ApplicationRecord
   has_many :account_users
   has_many :accounts, through: :account_users
   has_many :boxes
-  has_many :payments
+  has_one :payment
   accepts_nested_attributes_for :payment
 end

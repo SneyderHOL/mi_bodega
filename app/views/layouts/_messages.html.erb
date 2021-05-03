@@ -1,11 +1,13 @@
 <% flash.each do |name, msg| %>
   <% case name %>
-  <% when "alert" %>
-    <% context = "warning" %>
+  <% when "error" %>
+    <% context = "danger" %>
   <% when "notice" %>
     <% context = "success" %>
+  <% when "alert" %>
+    <% context = "warning" %>
   <% else %>
-    <% context = "light" %>
+    <% context = "info" %>
   <% end %>
   <div class="alert alert-<%= context %> alert-dismissible fade show" role="alert">
     <%= msg %>

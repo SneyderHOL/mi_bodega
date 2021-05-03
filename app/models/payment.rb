@@ -12,6 +12,21 @@ class Payment < ApplicationRecord
   end
 
   def payment_process(email, price, account)
-    # payment process here
+    customer = Stripe::Customer.create email: email, card: token
+    # subscription here
+    subscription = Stripe::Subscription.create({
+      customer: customer.id,
+      items: [
+        {
+          price: price.stripe_price_id,
+          quantity: 1
+        },
+      ],
+    })
+    self.stripe_customer_id = customer.id
+    subscription_register = Subscription.new(price: price, account: account, active: true)
+    byebug  
+    subscription_register.save
+    byebug
   end
 end

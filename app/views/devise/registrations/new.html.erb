@@ -1,6 +1,10 @@
+<script language="Javascript">
+  Stripe.setPublishableKey("<%= Rails.application.credentials.stripe[:publishable_key] %>");
+</script>
+
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { role: "form", class: 'cc_form' }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
@@ -20,6 +24,50 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
+
+  <%= fields_for(:account) do |w| %>
+    <div>
+      <%= w.label :name, 'Account'%>
+      <span class="description">(Unique name for your group or organization for the new account)</span>
+      <%= w.text_field :name, required: true %>
+    </div>
+    <div>
+      <%= w.label :plan %>
+      <br>
+      <%= w.select :plan, options_for_select(Plan.options, params[:plan]), {}, required: true %>
+    </div>
+  <% end %>
+
+  <%= fields_for :payment do |p| %>
+    <div>
+      <div>
+        <%= p.label :card_number, "Card Number", data: { stripe: 'label' } %>
+        <%= p.text_field :card_number, required: true, data: { stripe: 'number' } %>
+      </div>
+      <div>
+        <%= p.label :card_cvv, "Card CVV", data: { stripe: 'label' } %>
+        <%= p.text_field :card_cvv, required: true, data: { stripe: 'cvc' } %>
+      </div>
+      <div>
+        <div>
+          <%= p.label :card_expires, "Card Expires", data: { stripe: 'label' } %>
+        </div>
+        <div>
+          <%= p.select :card_expires_month, options_for_select(Payment.month_options),
+                        { include_blank: 'Month' },
+                        required: true,
+                        "data-stripe" => "exp-month" %>
+        </div>
+        <div>
+          <%= p.select :card_expires_year, options_for_select(Payment.year_options.push),
+                        { include_blank: 'Year' },
+                        required: true,
+                        data: { stripe: "exp-year" } %>
+        </div>
+      </div>
+    </div>
+    
+  <% end %>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
