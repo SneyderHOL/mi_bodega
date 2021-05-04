@@ -20,7 +20,8 @@ class RegistrationsController < Devise::RegistrationsController
           begin
             @payment.payment_process(resource.email, price, account)
             @payment.save
-            new_acount = AccountUser.create(user: resource, account: account, admin: true)
+            resource.add_account(account, true)
+            #new_acount = AccountUser.create(user: resource, account: account, admin: true)
           rescue Exception => e
             flash[:error] = e.message
             account.destroy
@@ -29,6 +30,7 @@ class RegistrationsController < Devise::RegistrationsController
             render :new and return
           end
         else
+          resource.add_account(account)
           Subscription.create(
             price: price,
             account: account,

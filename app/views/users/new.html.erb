@@ -1,0 +1,15 @@
+<%= form_with(model: @user, url: create_new_user_path, local: true) do |f| %>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email, placeholder: "Enter email address" %>
+  </div>
+
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password, placeholder: "Enter password" %>
+  </div>
+
+  <div>
+    <%= f.submit "Add User" %>
+  </div>
+<% end %>

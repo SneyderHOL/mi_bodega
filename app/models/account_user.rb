@@ -3,7 +3,6 @@ class AccountUser < ApplicationRecord
   acts_as_tenant(:account)
   #belongs_to :account
   belongs_to :user
-  validates :admin, presence: true
   
   private
 
