@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_230529) do
+ActiveRecord::Schema.define(version: 2021_05_04_213951) do
 
   create_table "account_users", force: :cascade do |t|
     t.boolean "admin"
@@ -32,11 +32,9 @@ ActiveRecord::Schema.define(version: 2021_05_03_230529) do
     t.string "name"
     t.string "qr_code"
     t.integer "account_id", null: false
-    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_boxes_on_account_id"
-    t.index ["user_id"], name: "index_boxes_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -103,7 +101,6 @@ ActiveRecord::Schema.define(version: 2021_05_03_230529) do
   add_foreign_key "account_users", "accounts"
   add_foreign_key "account_users", "users"
   add_foreign_key "boxes", "accounts"
-  add_foreign_key "boxes", "users"
   add_foreign_key "items", "boxes"
   add_foreign_key "items", "users"
   add_foreign_key "payments", "users"
