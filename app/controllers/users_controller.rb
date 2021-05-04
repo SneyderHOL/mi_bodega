@@ -29,11 +29,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password)
   end
-
-  def validate_permissions
-    unless current_user_is_admin?
-      flash[:alert] = "You don't have permissions to perform that action"
-      redirect_to root_path
-    end
-  end
 end

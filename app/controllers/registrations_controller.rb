@@ -3,45 +3,41 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
     resource.class.transaction do
+
       resource.save
       account = Account.new(account_params)
       plan = Plan.find_by(id: account.plan)
       price = Price.find_by(id: plan.price.id)
       account.save
-      purchase_plan = plan.name.downcase == 'moderate' || plan.name.downcase == 'unlimited'
+
       yield resource if block_given?
+
       if resource.persisted?
         @payment = Payment.new({ token: params[:payment]["token"], user_id: resource.id })
         unless @payment.valid?
           flash[:error] = "Please check registration errors"
           return
         end
-        if purchase_plan
-          begin
-            @payment.payment_process(resource.email, price, account)
-            @payment.save
-            resource.add_account(account, true)
-            #new_acount = AccountUser.create(user: resource, account: account, admin: true)
-          rescue Exception => e
-            flash[:error] = e.message
-            account.destroy
-            resource.destroy
-            puts 'Payment failed'
-            render :new and return
-          end
-        else
-          resource.add_account(account)
+        begin
+          @payment.payment_process(resource.email, price, account)
+          @payment.save
+          resource.add_account(account, true)
           Subscription.create(
             price: price,
             account: account,
             active: true
           )
+        rescue Exception => e
+          flash[:error] = e.message
+          account.destroy
+          resource.destroy
+          puts 'Payment failed'
+          render :new and return
         end
-        
+
         if resource.active_for_authentication?
           set_flash_message! :notice, :signed_up
           sign_up(resource_name, resource)
-          #set_current_account(account)  #set_tenant
           set_current_tenant(account)
           respond_with resource, location: after_sign_up_path_for(resource)
         else

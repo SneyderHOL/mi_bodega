@@ -2,9 +2,9 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   set_current_tenant_through_filter
   before_action :set_current_tenant
-  helper_method :set_current_account, :current_account, :current_user_is_admin?
+  helper_method :set_current_account, :current_account,
+                :current_user_is_admin?
 
-  # def set_current_account(account = nil)
   def set_current_tenant(account = nil)
     if account
       session[:account_id] = account.id
@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_account
-    #@current_account = set_current_account
     @current_account = set_current_tenant
   end
 
@@ -27,5 +26,12 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     accounts_path
+  end
+
+  def validate_permissions
+    unless current_user_is_admin?
+      flash[:alert] = "You don't have permissions to perform that action"
+      redirect_to root_path
+    end
   end
 end

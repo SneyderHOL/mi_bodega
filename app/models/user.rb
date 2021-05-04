@@ -3,10 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :account_users
+  has_many :account_users, dependent: :destroy
   has_many :accounts, through: :account_users
-  has_many :boxes
-  has_one :payment
+  has_one :payment, dependent: :destroy
   accepts_nested_attributes_for :payment
 
   def add_account(account, admin = false)
