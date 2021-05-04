@@ -9,13 +9,24 @@
         <li class="nav-item">
           <%= link_to "Home", root_path, class: "nav-link" %>
         </li>
+        <% if current_user && current_user_is_admin? %>
+          <li class="nav-item">
+            <%= link_to "Invite Users", root_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Billing", root_path, class: "nav-link" %>
+          </li>
+        <% end %>
         <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to 'Switch account', accounts_path, class: "nav-link" %>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               User
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "Edit account", edit_user_registration_path, class: "dropdown-item" %>
+              <%= link_to "Edit user", edit_user_registration_path, class: "dropdown-item" %>
             </ul>
           </li>
           <li class="nav-item">

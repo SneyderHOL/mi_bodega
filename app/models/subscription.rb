@@ -1,6 +1,7 @@
 class Subscription < ApplicationRecord
   after_initialize :default_values
-  belongs_to :account
+  acts_as_tenant(:account)
+  # belongs_to :account
   belongs_to :price
   validates :active, presence: true
   

@@ -1,6 +1,7 @@
 class AccountUser < ApplicationRecord
   after_initialize :default_values
-  belongs_to :account
+  acts_as_tenant(:account)
+  #belongs_to :account
   belongs_to :user
   validates :admin, presence: true
   
