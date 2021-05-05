@@ -12,10 +12,11 @@ class ApplicationController < ActionController::Base
     else
       @current_account ||= Account.find_by(id: session[:account_id])
     end
+    #byebug
   end
 
   def current_account
-    @current_account = set_current_tenant
+    @current_account ||= set_current_tenant
   end
 
   def current_user_is_admin?
@@ -33,5 +34,10 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "You don't have permissions to perform that action"
       redirect_to root_path
     end
+  end
+
+  def not_found
+    render file: "#{Rails.root}/public/404.html",
+              layout: false, status: :not_found
   end
 end

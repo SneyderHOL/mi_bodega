@@ -6,5 +6,8 @@ Rails.application.routes.draw do
   get 'add_users', to: 'users#new', as: 'add_new_user'
   post 'add_users', to: 'users#create', as: 'create_new_user'
   post 'billing_portal', to: 'billing_portal#create', as: 'billing_portal'
-  resources :boxes, except: [:edit, :update, :destroy]
+  resources :boxes, except: [:edit, :update, :destroy] do
+    resources :items, except: [:destroy]
+  end
+  post 'box/:box_id/item/:id/use_item', to: 'items#use_item', as: 'use_item'
 end

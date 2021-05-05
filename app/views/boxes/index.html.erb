@@ -13,7 +13,7 @@
       <tr>
         <td><%= box.name %></td>
         <td><%= link_to 'Show', box %></td>
-        <td><%= link_to 'Add item', box %></td>
+        <td><%= link_to 'Add item', new_box_item_path(box) %></td>
       </tr>
     <% end %>
   </tbody>

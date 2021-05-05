@@ -1,12 +1,16 @@
 class BoxesController < ApplicationController
-  before_action :validate_user_belongs_to_account, only: [:show]
+  before_action :account_have_been_choose?, only: [:show, :index, :new, :create]
+  before_action :validate_user_belongs_to_account, only: [:show, :create]
   
   def index
-    @boxes = Box.all
+    @boxes = current_account.boxes.all
   end
 
   def show
-    @box = Box.find(params[:id])
+    @box = current_account.boxes.where(id: params[:id]).first
+    unless @box
+      not_found
+    end
   end
 
   def new
@@ -33,6 +37,13 @@ class BoxesController < ApplicationController
     unless current_account.users.include?(current_user)
       flash[:alert] = "You don't have permissions to perform that action"
       redirect_to root_path
+    end
+  end
+
+  def account_have_been_choose?
+    unless current_account
+      flash[:alert] = "You have to choose an account to perform that action"
+      redirect_to accounts_path
     end
   end
 end

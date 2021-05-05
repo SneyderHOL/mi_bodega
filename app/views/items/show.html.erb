@@ -1,0 +1,40 @@
+<h1>Show item</h1>
+<div>
+  <strong>Description:</strong>
+  <%= @item.description %>
+</div>
+
+<% if @item.picture.attached? %>
+  <div>
+    <%= image_tag @item.picture.variant(resize_to_limit: [300, 300]) %>
+  </div>
+<% end %>
+
+<% if @item.user %>
+  <% if @item.user == current_user %>
+    <div>
+      <%= form_with(url: use_item_path(box_id: @item.box.id, id: @item.id), local:true) do |w| %>
+        <%= hidden_field_tag 'in_use', "false" %>
+        <p>You are currently using this item, if you are done using it press button</p>
+        <%= w.submit 'Done using item' %>
+      <% end %>
+    </div>
+
+  <% else %>
+    <p>Item is currently in use by a user</p>
+  <% end %>
+
+<% else %>
+  <%= form_with(url: use_item_path(box_id: @item.box.id, id: @item.id), local:true) do |z| %>
+    <p>Would you like to use the item?</p>
+    <%= hidden_field_tag 'in_use', "true" %>
+    <%= z.submit 'Use item' %>
+  <% end %>
+  <br>
+  <div>
+    <p>Would you like to move the item to another box?</p>
+    <%= link_to 'Move item', edit_box_item_path %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', boxes_path %>

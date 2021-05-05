@@ -1,0 +1,19 @@
+<h1>Move item</h1>
+
+<%= render 'shared/errors', obj: @item %>
+<% available_boxes = @item.available_boxes %>
+<% if available_boxes.length > 0 %>
+  <%= form_with(model: @item, url: box_item_path) do |f| %>
+    <div>
+      <%= f.label :new_box, 'New Box' %>
+      <br>
+      <%= f.select :new_box, options_for_select(@item.available_boxes, params[:new_box]), {}, required: true %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Move item" %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Not enough boxes to move the item</p>
+<% end %>

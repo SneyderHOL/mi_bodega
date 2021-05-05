@@ -5,12 +5,12 @@
   <%= @box.name %>
 </div>
 <div>
-  <%= link_to 'Add item', box %></td>
+  <%= link_to 'Add item', new_box_item_path(@box) %>
 </div>
 <div>
   <% @box.items.each do |item| %>
     <div>
-      
+      <%= link_to "#{item.id}", box_item_path(box_id: @box, id: item.id) %>
     </div>
   <% end %>
 </div>

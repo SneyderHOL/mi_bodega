@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_231446) do
+ActiveRecord::Schema.define(version: 2021_05_05_171403) do
 
   create_table "account_users", force: :cascade do |t|
     t.boolean "admin"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2021_05_04_231446) do
   create_table "items", force: :cascade do |t|
     t.string "description"
     t.integer "box_id", null: false
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["box_id"], name: "index_items_on_box_id"

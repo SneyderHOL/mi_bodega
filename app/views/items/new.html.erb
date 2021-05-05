@@ -1,0 +1,17 @@
+<h1>Create a new item</h1>
+
+<%= render 'shared/errors', obj: @item %>
+<%= form_with(model: @item, url: box_items_path) do |f| %>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description, placeholder: "Description of item" %>
+  </div>
+  <div class="field">
+    <%= f.file_field :picture, accept: "image/png, image/jpeg" %>
+  </div>
+  <%= f.hidden_field :box_id, value: params[:box_id] %>
+
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>
