@@ -1,1 +1,17 @@
 <h1>Show Box</h1>
+
+<div>
+  <strong>Name:</strong>
+  <%= @box.name %>
+</div>
+<div>
+  <%= link_to 'Add item', box %></td>
+</div>
+<div>
+  <% @box.items.each do |item| %>
+    <div>
+      
+    </div>
+  <% end %>
+</div>
+<%= link_to 'Back', boxes_path %>
