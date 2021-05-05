@@ -1,5 +1,4 @@
 class BillingPortalController < ApplicationController
-  before_action :authenticate_user!, only: [:create]
   before_action :validate_permissions, only: [:create]
   before_action :get_customer_id, only: [:create]
 
