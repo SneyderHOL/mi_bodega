@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
     else
       @current_account ||= Account.find_by(id: session[:account_id])
     end
-    #byebug
   end
 
   def current_account
