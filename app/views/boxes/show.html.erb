@@ -7,16 +7,17 @@
 <div>
   <%= link_to 'Add item', new_box_item_path(@box) %>
 </div>
-<div>
+<div class="row">
   <% @box.items.each do |item| %>
-    <div>
+    <div class="col-4">
       <% if item.picture.attached? %>
         <%= link_to image_tag(item.picture.variant(resize_to_limit: [300, 300])), box_item_path(box_id: @box, id: item.id) %>
       <% else %>
         <%= link_to "#{item.id}", box_item_path(box_id: @box, id: item.id) %>
       <% end %>
+      <p><%= item.description %></p>
       <% if item.user %>
-        <small>In use</small>
+        <p>In use</p>
       <% end %>
     </div>
   <% end %>
