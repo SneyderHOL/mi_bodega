@@ -7,6 +7,11 @@ This project allows to manage storage units, creating boxes and items.
 The main functionalities are users registration, (email, password, account, plan subscription), signin, signout, invite users to account, switching account, create boxes (limited/unlimited according to plan subscription), QR Code generation to created box url, add items (description, picture, "in use" state) to a box, or move item to another box of the same account, see billing information. This app was made using Ruby on Rails (RoR) framework with focus mostly on backend functionalities but it includes a basic view to use.
 
 
+## Demo
+
+Check the demo version at: https://mi-bodega-app-ror.herokuapp.com/
+
+
 ## How users can get started with?
 
 ### Pre-requisites
