@@ -10,4 +10,5 @@ Rails.application.routes.draw do
     resources :items, except: [:destroy]
   end
   post 'box/:box_id/item/:id/use_item', to: 'items#use_item', as: 'use_item'
+  get 'box/:id/qr_code/', to: 'boxes#show_code', as: 'box_code'
 end

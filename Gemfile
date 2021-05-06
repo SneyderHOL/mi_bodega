@@ -27,6 +27,8 @@ gem 'devise'
 gem 'stripe'
 # Use acts_as_tenant
 gem 'acts_as_tenant'
+# Use rqrcode
+gem 'rqrcode'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'

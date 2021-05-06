@@ -1,0 +1,8 @@
+<h1>Box's QRCode</h1>
+<% if @qr_code %>
+  <div>
+    <%= @qr_code.html_safe %>
+  </div>
+<% else %>
+  <p>Not available</p>
+<% end %>

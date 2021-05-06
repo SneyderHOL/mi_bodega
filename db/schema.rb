@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_05_171403) do
+ActiveRecord::Schema.define(version: 2021_05_05_230734) do
 
   create_table "account_users", force: :cascade do |t|
     t.boolean "admin"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2021_05_05_171403) do
 
   create_table "boxes", force: :cascade do |t|
     t.string "name"
-    t.string "qr_code"
+    t.text "qr_code"
     t.integer "account_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
