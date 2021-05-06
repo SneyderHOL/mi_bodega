@@ -39,11 +39,13 @@ $(document).on('ready turbolinks:load', function() {
   };
 
   show_error = function(message) {
-    if ($("#flash-messages").size() < 1) {
-      $('div.container.main div:first').prepend("<div id='flash-messages'></div>");
+    const auxiliar = $("#flash-messages")
+    if (auxiliar.length == 0) {
+      $('div.container').prepend("<div id='flash-messages'></div>");
     }
-    $("#flash-messages").html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><div id="flash_alert">' + message + '</div></div>');
-    //$('.alert').delay(5000).fadeOut(3000);
+    const alertElement = '<div class="alert alert-warning alert-dismissible fade show" role="alert"><div id="flash_alert">' + message + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+    $("#flash-messages").html(alertElement);
+    $('.alert').delay(5000).fadeOut(3000);
     return false;
   };
 });
