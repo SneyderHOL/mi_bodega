@@ -28,10 +28,9 @@ It is also necessary an Stripe account and setup a few components like:
   - Configure a customer portal in stripe dashboard (for billing portal integration with the app)
   - Having 3 products (related to plans: Free, Moderate, Unlimited)
   - Having 3 prices attached to the previous products
-  - Stripe keys configured in rails credentials (use for payments) example:
-      Stripe:
-          publishable_key: xxxxxxx
-          secret_key: xxxxxxx
+  - Stripe keys configured in environment variables example:
+      STRIPE_PUBLISHABLE_KEY=xxxxxxx
+      STRIPE_SECRET_KEY=xxxxxxx
 
 See Stripe documentation for more information https://stripe.com/docs
 
@@ -66,9 +65,10 @@ Create database tables:
 rails db:migrate
 ```
 
-Configure Stripe keys in rails credentials (check pre-requisites for example):
+Configure Stripe keys in environment variables, example:
 ``` sh
-rails credentials:edit
+STRIPE_PUBLISHABLE_KEY=xxxxxxx
+STRIPE_SECRET_KEY=xxxxxxx
 ```
 
 Add plans and prices to db, update the seed file, replace the stripe's fields with your own, and you could replace the box_limit value in the free and moderate plan if you like
