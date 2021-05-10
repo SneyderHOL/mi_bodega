@@ -21,11 +21,6 @@ class RegistrationsController < Devise::RegistrationsController
           @payment.payment_process(resource.email, price, account)
           @payment.save
           resource.add_account(account, true)
-          Subscription.create(
-            price: price,
-            account: account,
-            active: true
-          )
         rescue Exception => e
           flash[:error] = e.message
           account.destroy
