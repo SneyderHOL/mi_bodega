@@ -1,8 +1,9 @@
 class Plan < ApplicationRecord
   has_one :price, dependent: :destroy
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :box_limit, presence: true
-  validates :stripe_product_id, presence: true
+  validates :stripe_product_id, presence: true,
+            uniqueness: { case_sensitive: false }
 
   def self.options
     Plan.all.map { |plan| [plan.name.capitalize, plan.id] }
