@@ -4,5 +4,7 @@ class Price < ApplicationRecord
   validates :currency, presence: true
   validates :amount, presence: true
   validates :interval, presence: true
-  validates :stripe_price_id, presence: true
+  validates_uniqueness_of :plan, message: "has already been associated"
+  validates :stripe_price_id, presence: true,
+            uniqueness: { case_sensitive: false }
 end
