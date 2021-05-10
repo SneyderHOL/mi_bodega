@@ -2,6 +2,8 @@ class Payment < ApplicationRecord
   attr_accessor :card_number, :card_cvv, :card_expires_month, :card_expires_year
   
   belongs_to :user
+  validates :token, presence: true, uniqueness: { case_sensitive: false }
+  validates_uniqueness_of :user, message: "has already been associated"
   
   def self.month_options
     Date::MONTHNAMES.compact.each_with_index.map { |name, i| ["#{i + 1} - #{name}", i+1] }
