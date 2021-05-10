@@ -22,6 +22,16 @@ RSpec.describe User, type: :model do
       end
     end
 
+    it 'test that has email uniqueness validation' do
+      aggregate_failures do
+        user.save
+        second_user = build(:user)
+        second_user.email = user.email
+        expect(second_user).not_to be_valid
+        expect(second_user.errors[:email]).to include("has already been taken")
+      end
+    end
+
     it 'test that has no password' do
       aggregate_failures do
         user.password = ''
