@@ -24,8 +24,9 @@ class BoxesController < ApplicationController
   def create
     @box = Box.new(box_params.merge(account: current_account))
     if @box.save
-      generate_qr_code
-      @box.save
+      qr_code = generate_qr_code
+      @box.update(qr_code: qr_code)
+      byebug
       flash[:notice] = "Box was created successfully."
       redirect_to @box
     else
@@ -61,7 +62,7 @@ class BoxesController < ApplicationController
     require 'rqrcode'
     box_dir = request.url + "/#{@box.id}"
     qr = RQRCode::QRCode.new(box_dir)
-    @box.qr_code = qr.as_svg(
+    qr_code = qr.as_svg(
       offset: 0,
       color: '000',
       shape_rendering: 'crispEdges',

@@ -17,7 +17,7 @@ class Box < ApplicationRecord
   end
 
   def name_uniqueness_within_same_account
-    if self.account.boxes.where('lower(name) = ?', name.downcase).first
+    if self.new_record? && self.account.boxes.where('lower(name) = ?', name.downcase).first
       errors.add(:name, "has already been taken")
     end
   end
