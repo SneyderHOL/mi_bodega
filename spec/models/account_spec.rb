@@ -3,9 +3,17 @@ require 'rails_helper'
 RSpec.describe Account, type: :model do
   describe '#validations' do
     let(:account) { build(:account) }
+    let(:free_account) { build(:account, :with_free_subscription) }
+    let(:moderate_account) { build(:account, :with_moderate_subscription) }
+    let(:unlimited_account) { build(:account, :with_unlimited_subscription) }
     
     it 'test that factory object is valid' do
-      expect(account).to be_valid
+      aggregate_failures do
+        expect(account).to be_valid
+        expect(free_account).to be_valid
+        expect(moderate_account).to be_valid
+        expect(unlimited_account).to be_valid
+      end
     end
 
     it 'test that factory name sequence is valid' do
@@ -19,14 +27,6 @@ RSpec.describe Account, type: :model do
         account.save
         second_account = build(:account)
         second_account.name = account.name
-        expect(second_account).not_to be_valid
-        expect(second_account.errors[:name]).to include("has already been taken")
-
-        second_account.name = account.name.downcase
-        expect(second_account).not_to be_valid
-        expect(second_account.errors[:name]).to include("has already been taken")
-
-        second_account.name = account.name.upcase
         expect(second_account).not_to be_valid
         expect(second_account.errors[:name]).to include("has already been taken")
       end
