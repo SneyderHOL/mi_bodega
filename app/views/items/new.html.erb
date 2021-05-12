@@ -7,6 +7,7 @@
     <%= f.text_field :description, placeholder: "Description of item" %>
   </div>
   <div class="field">
+    <%= f.label :picture %>
     <%= f.file_field :picture, accept: "image/png, image/jpeg" %>
   </div>
   <%= f.hidden_field :box_id, value: params[:box_id] %>
