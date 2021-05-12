@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   belongs_to :user, optional: true
   has_one_attached :picture
   validates :description, presence: true
+  validates :picture, presence: { message: "needs to be attached" }
   validate :image_type_validation
 
   def available_boxes
