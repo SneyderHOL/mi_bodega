@@ -26,7 +26,6 @@ class BoxesController < ApplicationController
     if @box.save
       qr_code = generate_qr_code
       @box.update(qr_code: qr_code)
-      byebug
       flash[:notice] = "Box was created successfully."
       redirect_to @box
     else

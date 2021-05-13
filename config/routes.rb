@@ -7,12 +7,13 @@ Rails.application.routes.draw do
   post 'add_users', to: 'users#create', as: 'create_new_user'
   post 'billing_portal', to: 'billing_portal#create', as: 'billing_portal'
   resources :boxes, except: [:edit, :update, :destroy] do
+    member do
+      get 'qr_code', to: 'boxes#show_code'
+    end
     resources :items, except: [:index, :destroy] do
       member do
         post 'use_item'
       end
     end
   end
-  # post 'boxes/:box_id/item/:id/use_item', to: 'items#use_item', as: 'use_item'
-  get 'boxes/:id/qr_code/', to: 'boxes#show_code', as: 'box_code'
 end

@@ -15,7 +15,7 @@
         <td><%= box.name %></td>
         <td><%= link_to 'Show', box %></td>
         <td><%= link_to 'Add item', new_box_item_path(box) %></td>
-        <td><%= link_to 'Show QRCode', box_code_path(box) %></td>
+        <td><%= link_to 'Show QRCode', qr_code_box_path(box) %></td>
       </tr>
     <% end %>
   </tbody>
