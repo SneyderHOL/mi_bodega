@@ -13,7 +13,7 @@
 <% if @item.user %>
   <% if @item.user == current_user %>
     <div>
-      <%= form_with(url: use_item_path(box_id: @item.box.id, id: @item.id), local:true) do |w| %>
+      <%= form_with(url: use_item_box_item_path(box_id: @item.box.id, id: @item.id), local:true) do |w| %>
         <%= hidden_field_tag 'in_use', "false" %>
         <p>You are currently using this item, if you are done using it press button</p>
         <%= w.submit 'Done using item' %>
@@ -25,7 +25,7 @@
   <% end %>
 
 <% else %>
-  <%= form_with(url: use_item_path(box_id: @item.box.id, id: @item.id), local:true) do |z| %>
+  <%= form_with(url: use_item_box_item_path(box_id: @item.box.id, id: @item.id), local:true) do |z| %>
     <p>Would you like to use the item?</p>
     <%= hidden_field_tag 'in_use', "true" %>
     <%= z.submit 'Use item' %>
