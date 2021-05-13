@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   put 'accounts/:id', to: 'accounts#update', as: 'update_account'
   get 'add_users', to: 'users#new', as: 'add_new_user'
   post 'add_users', to: 'users#create', as: 'create_new_user'
-  post 'billing_portal', to: 'billing_portal#create', as: 'billing_portal'
+  get 'billing_portal', to: 'billing_portal#new', as: 'billing_portal'
   resources :boxes, except: [:edit, :update, :destroy] do
     member do
       get 'qr_code', to: 'boxes#show_code'

@@ -1,8 +1,8 @@
 class BillingPortalController < ApplicationController
-  before_action :validate_permissions, only: [:create]
-  before_action :get_customer_id, only: [:create]
+  before_action :validate_permissions, only: [:new]
+  before_action :get_customer_id, only: [:new]
 
-  def create
+  def new
     if @customer_id
       portal_session = Stripe::BillingPortal::Session.create({
         customer: @customer_id,
