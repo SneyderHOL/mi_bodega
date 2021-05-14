@@ -1,6 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe Box, type: :model do
+  shared_examples_for "box limit object creation" do
+    it 'last element should not be valid' do
+      aggregate_failures do
+        limit = subject.subscription.price.plan.box_limit
+        i = 0;
+        loop do
+          if i >= limit
+            break
+          end
+          new_free_box = create(:box, account: subject)
+          i += 1
+        end
+        last_box = build(:box, account: subject)
+        expect(last_box).not_to be_valid
+        expect(last_box.errors[:base]).to include("Your account cannot have more boxes than #{limit}")
+      end
+    end
+  end
+
   describe '#validations' do
     let(:free_box) { build(:box_within_free_account) }
     let(:moderate_box) { build(:box_within_moderate_account) }
@@ -71,7 +90,7 @@ RSpec.describe Box, type: :model do
     it 'test for unlimited box creation' do
       aggregate_failures do
         account = create(:account, :with_unlimited_subscription)
-        # testing limit to 100
+        # testing limit up to 100
         limit = 100
         i = 0;
         loop do
