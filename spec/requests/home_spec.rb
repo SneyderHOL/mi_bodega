@@ -54,8 +54,11 @@ RSpec.describe HomeController, type: :request do
 
     describe 'as a registered user' do
       include_context "sign in as admin user"
+      before { subject }
       it_behaves_like 'home page for user'
+
       include_context "sign in as invited user"
+      before { subject }
       it_behaves_like 'home page for user'
     end
   end

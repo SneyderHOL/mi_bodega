@@ -7,7 +7,6 @@ RSpec.shared_context "sign in as admin user" do
   before {
     admin_user_with_unlimited_account
     sign_in admin_user_with_unlimited_account.user
-    subject
   }
   
 end
