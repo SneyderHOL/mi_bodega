@@ -24,7 +24,7 @@ RSpec.describe AccountUser, type: :model do
     it 'test that factory objects are valid' do
       aggregate_failures do
         expect(admin_user_with_free_account).to be_valid
-        expect(admin_user_with_free_account.).to be_valid
+        expect(admin_user_with_free_account).to be_valid
         expect(admin_user_with_moderate_account).to be_valid
         expect(admin_user_with_unlimited_account).to be_valid
         expect(invited_user_with_free_account).to be_valid
