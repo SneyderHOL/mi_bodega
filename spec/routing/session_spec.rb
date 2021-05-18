@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RegistrationsController, type: :routing do
+RSpec.describe 'Devise session', type: :routing do
   describe "routing" do
     it 'should route to devise/sessions#new' do
       expect(get: 'users/sign_in').to route_to('devise/sessions#new')
