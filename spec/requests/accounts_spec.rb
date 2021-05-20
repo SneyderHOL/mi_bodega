@@ -21,18 +21,21 @@ RSpec.describe AccountsController, type: :request do
   end
 
   describe "PUT /accounts/id" do
-    # Create account_user relation
-    let(:admin_user_with_unlimited_account) {
-      create(:account_user_as_admin_with_unlimited_account)
-    }
+    include_context "sign in as admin user"
+
+    let(:account_id) { admin_user_with_unlimited_account.account.id.to_s }
+    
+    subject { put account_path(id: account_id) }
 
     it 'should redirect to home' do
-      sign_in admin_user_with_unlimited_account.user
+      expect(subject).to redirect_to(root_path)
 
-      # Account related to user
-      account_id = admin_user_with_unlimited_account.account.id.to_s
-      
-      expect(put account_path(id: account_id)).to redirect_to(root_path)
+    end
+
+    it 'should have a current account' do
+      subject
+      get accounts_path
+      expect(response.body).to match(/current account/i)
     end
   end
 end
