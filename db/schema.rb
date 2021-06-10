@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_05_230734) do
+ActiveRecord::Schema.define(version: 2021_06_10_195354) do
 
   create_table "account_users", force: :cascade do |t|
     t.boolean "admin"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_05_05_230734) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_account_users_on_account_id"
+    t.index ["user_id", "account_id"], name: "index_account_users_on_user_id_and_account_id", unique: true
     t.index ["user_id"], name: "index_account_users_on_user_id"
   end
 
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(version: 2021_05_05_230734) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_accounts_on_name", unique: true
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -81,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_05_05_230734) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "stripe_customer_id"
+    t.index ["token"], name: "index_payments_on_token", unique: true
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
@@ -90,6 +93,8 @@ ActiveRecord::Schema.define(version: 2021_05_05_230734) do
     t.string "stripe_product_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_plans_on_name", unique: true
+    t.index ["stripe_product_id"], name: "index_plans_on_stripe_product_id", unique: true
   end
 
   create_table "prices", force: :cascade do |t|
@@ -100,7 +105,8 @@ ActiveRecord::Schema.define(version: 2021_05_05_230734) do
     t.integer "plan_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["plan_id"], name: "index_prices_on_plan_id"
+    t.index ["plan_id"], name: "index_prices_on_plan_id", unique: true
+    t.index ["stripe_price_id"], name: "index_prices_on_stripe_price_id", unique: true
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -110,8 +116,9 @@ ActiveRecord::Schema.define(version: 2021_05_05_230734) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "stripe_subscription_id"
-    t.index ["account_id"], name: "index_subscriptions_on_account_id"
+    t.index ["account_id"], name: "index_subscriptions_on_account_id", unique: true
     t.index ["price_id"], name: "index_subscriptions_on_price_id"
+    t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
