@@ -19,6 +19,8 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Use nokogiri
+gem 'nokogiri', '~> 1.11', '>= 1.11.7'
 # Use devise
 gem 'devise'
 # Use strip
