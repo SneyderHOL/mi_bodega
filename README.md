@@ -1,6 +1,6 @@
 # Mi bodega App
 
-## Intro
+## Introduction
 
 This project allows to manage storage units, creating boxes and items.
 
